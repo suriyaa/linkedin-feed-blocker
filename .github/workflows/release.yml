@@ -74,13 +74,16 @@ jobs:
           WEB_EXT_API_SECRET: ${{ secrets.WEB_EXT_API_SECRET }}
         run: |
           # Listed submissions go to Mozilla review; the license + listing
-          # metadata are supplied via amo-metadata.json. web-ext exits 0 once the
-          # version is uploaded and validated (review/signing happens after).
+          # metadata are supplied via amo-metadata.json.
+          # --approval-timeout=0 uploads the version and exits immediately instead
+          # of waiting for human review (which can take hours/days). Mozilla signs
+          # and publishes after the review completes.
           npx --yes web-ext sign \
             --source-dir dist/firefox \
             --channel=listed \
             --artifacts-dir dist/signed \
-            --amo-metadata amo-metadata.json
+            --amo-metadata amo-metadata.json \
+            --approval-timeout=0
 
       - name: Commit version bump
         run: |

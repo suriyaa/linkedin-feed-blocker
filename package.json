@@ -1,6 +1,6 @@
 {
   "name": "linkedin-feed-blocker",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Browser extension that blocks the LinkedIn home feed while keeping the rest of LinkedIn usable. Firefox-first, Chrome/Edge/Safari compatible.",
   "private": true,
   "type": "module",
