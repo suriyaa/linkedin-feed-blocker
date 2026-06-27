@@ -1,7 +1,7 @@
 /**
  * Background service worker (MV3).
  *
- * Kept intentionally tiny — the content script + storage carry the state, so the
+ * Kept intentionally tiny - the content script + storage carry the state, so the
  * worker can sleep freely. Two jobs:
  *   1. Seed default settings on install.
  *   2. Open the options page when the content overlay's "Settings" is clicked

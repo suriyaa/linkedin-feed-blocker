@@ -7,7 +7,7 @@ body:
     attributes:
       value: |
         Thanks for taking the time to report a bug! Please fill in as much as you
-        can — **a screenshot and the exact steps make fixes much faster.**
+        can - **a screenshot and the exact steps make fixes much faster.**
 
   - type: checkboxes
     id: preflight

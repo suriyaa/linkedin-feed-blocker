@@ -7,23 +7,23 @@ dependency-free WebExtension, so contributing is intentionally low-friction.
 
 Keep changes aligned with the project's goals:
 
-- **Privacy first** — no analytics, no tracking, no remote code, no data
+- **Privacy first** - no analytics, no tracking, no remote code, no data
   collection. Settings stay in `browser.storage.local` only.
-- **Minimum permissions** — `storage` + host access scoped to
+- **Minimum permissions** - `storage` + host access scoped to
   `*://*.linkedin.com/*`. Don't add permissions without a strong, documented
   reason.
-- **Resilience over cleverness** — prefer URL/path checks, ARIA, landmarks, and
+- **Resilience over cleverness** - prefer URL/path checks, ARIA, landmarks, and
   semantic heuristics over fragile generated class names. See
   [SELECTOR-STRATEGY.md](SELECTOR-STRATEGY.md).
-- **Cross-browser** — code must work on Firefox (reference), Chrome, and Edge,
+- **Cross-browser** - code must work on Firefox (reference), Chrome, and Edge,
   and stay portable to Safari. Always use the `browser.*` API (the shim aliases
   `chrome.*`); avoid browser-specific APIs.
-- **Plain JS/HTML/CSS** — no frameworks, no bundler, no runtime dependencies.
+- **Plain JS/HTML/CSS** - no frameworks, no bundler, no runtime dependencies.
 
 ## Repository layout
 
 The single source of truth is `src/` + `icons/` + `manifests/`. The per-browser
-folders in `dist/` are **generated** — never edit them by hand.
+folders in `dist/` are **generated** - never edit them by hand.
 
 ```
 src/        shared source (edit here)
@@ -34,7 +34,7 @@ dist/       generated, git-ignored
 
 ## Getting started
 
-No `npm install` is required — the scripts use only Node's standard library plus
+No `npm install` is required - the scripts use only Node's standard library plus
 system `zip`/`python3`.
 
 ```bash
@@ -51,14 +51,14 @@ Load the relevant `dist/<browser>/` folder as a temporary/unpacked extension
 
 1. **Fork and branch.** Create a feature branch off `main`
    (`git checkout -b fix/feed-selector`).
-2. **Edit the source** under `src/` / `manifests/` — never `dist/`.
+2. **Edit the source** under `src/` / `manifests/` - never `dist/`.
 3. **Rebuild** with `npm run build` and reload the extension.
 4. **Lint** the Firefox build:
    ```bash
    npx web-ext lint --source-dir dist/firefox
    ```
    Aim for zero errors and zero warnings.
-5. **Test manually** against [TEST-PLAN.md](TEST-PLAN.md) — at minimum the
+5. **Test manually** against [TEST-PLAN.md](TEST-PLAN.md) - at minimum the
    sections your change touches, plus the Easy/Strict mode checks.
 6. **Open a pull request** with a clear description of what changed and why.
 
@@ -66,10 +66,10 @@ Load the relevant `dist/<browser>/` folder as a temporary/unpacked extension
 
 - Match the surrounding code: 2-space indentation, semicolons, double quotes.
 - Keep functions small and named for what they do.
-- Comment **why**, not what — especially around selector choices, since LinkedIn's
+- Comment **why**, not what - especially around selector choices, since LinkedIn's
   DOM changes often.
 - Use `browser.*`, never `chrome.*`, in feature code.
-- Don't introduce `localStorage` / `sessionStorage` for persisted state — use the
+- Don't introduce `localStorage` / `sessionStorage` for persisted state - use the
   extension storage helpers in `src/lib/storage.js`.
 
 ## Updating selectors when LinkedIn changes
@@ -100,7 +100,7 @@ Open an issue describing:
 - Steps to reproduce (a LinkedIn URL pattern helps).
 - Console errors (any line mentioning `lfb`), if relevant.
 
-For **security issues, do not open a public issue** — see
+For **security issues, do not open a public issue** - see
 [SECURITY.md](SECURITY.md).
 
 ## License

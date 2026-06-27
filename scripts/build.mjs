@@ -6,7 +6,7 @@
  * Output:           dist/firefox  dist/chrome  dist/edge  dist/safari
  *
  * Each output folder is a complete, loadable extension with the correct
- * manifest.json for that browser. No code is duplicated in the repo — the dist
+ * manifest.json for that browser. No code is duplicated in the repo - the dist
  * folders are generated artifacts (git-ignore them).
  *
  * Usage:
@@ -76,12 +76,12 @@ async function main() {
       join(ROOT, "dist", "README.md"),
       "# dist/ (generated)\n\n" +
         "These folders are produced by `npm run build` (scripts/build.mjs) from the\n" +
-        "shared source in `src/` + `icons/` + `manifests/`. Do not edit them by hand —\n" +
+        "shared source in `src/` + `icons/` + `manifests/`. Do not edit them by hand -\n" +
         "edit the source and rebuild. Safe to delete; regenerate any time.\n\n" +
-        "- `firefox/` — Load Temporary Add-on (about:debugging)\n" +
-        "- `chrome/`  — Load unpacked (chrome://extensions)\n" +
-        "- `edge/`    — Load unpacked (edge://extensions)\n" +
-        "- `safari/`  — Input to `xcrun safari-web-extension-converter`\n"
+        "- `firefox/` - Load Temporary Add-on (about:debugging)\n" +
+        "- `chrome/`  - Load unpacked (chrome://extensions)\n" +
+        "- `edge/`    - Load unpacked (edge://extensions)\n" +
+        "- `safari/`  - Input to `xcrun safari-web-extension-converter`\n"
     );
   }
 }

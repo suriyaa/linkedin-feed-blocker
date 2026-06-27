@@ -32,7 +32,7 @@ LinkedIn account.
 
 ## 5. Pause / unpause
 
-- [ ] In the popup, click **Pause 10 min** → status shows "Paused — … left".
+- [ ] In the popup, click **Pause 10 min** → status shows "Paused - … left".
 - [ ] Reload the feed → feed is visible (not blocked).
 - [ ] Click **Resume now** in popup → reload feed → blocked again.
 - [ ] On the overlay card, **Pause N min** also pauses (matches options default).

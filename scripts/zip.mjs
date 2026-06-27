@@ -16,7 +16,7 @@ const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const DIST = join(ROOT, "dist");
 
 if (!existsSync(DIST)) {
-  console.error("No dist/ — run `npm run build` first.");
+  console.error("No dist/ - run `npm run build` first.");
   process.exit(1);
 }
 

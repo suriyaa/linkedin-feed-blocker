@@ -54,10 +54,10 @@
       statusLine.textContent = "Blocking is off.";
     } else if (paused) {
       statusLine.textContent =
-        "Paused — " + formatRemaining(settings.pausedUntil - Date.now()) + " left.";
+        "Paused - " + formatRemaining(settings.pausedUntil - Date.now()) + " left.";
     } else {
       statusLine.textContent =
-        "Active — " + (mode === "strict" ? "strict" : "easy") + " mode.";
+        "Active - " + (mode === "strict" ? "strict" : "easy") + " mode.";
     }
   }
 

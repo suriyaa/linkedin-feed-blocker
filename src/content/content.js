@@ -1,5 +1,5 @@
 /**
- * LinkedIn Feed Blocker — content script.
+ * LinkedIn Feed Blocker - content script.
  *
  * Runs at document_start on linkedin.com. Responsibilities:
  *   1. Detect feed/home URLs as early as possible and pre-hide the feed (no flash).
@@ -9,7 +9,7 @@
  *   4. Re-apply on SPA navigation + dynamic re-renders via a MutationObserver.
  *   5. Optionally blank sidebar / suggested / strict feed-like surfaces.
  *
- * Selector strategy (resilient by design — see README "Selector strategy"):
+ * Selector strategy (resilient by design - see README "Selector strategy"):
  *   - URL/path checks are the primary, most stable signal for the home feed.
  *   - DOM targeting prefers semantic landmarks (main[role="main"], aside[aria-label])
  *     and stable data attributes over fragile generated class names.
@@ -51,7 +51,7 @@
     return p === "" || p === "/feed";
   }
 
-  /** Individual post permalink — only blocked when strict mode is on. */
+  /** Individual post permalink - only blocked when strict mode is on. */
   function isFeedPermalink(url) {
     try {
       return /\/feed\/update\//.test(new URL(url).pathname);
@@ -159,7 +159,7 @@
     const secondary = document.createElement("div");
     secondary.className = "lfb-overlay__secondary";
 
-    // Easy mode offers escape hatches. Strict mode deliberately omits them — the
+    // Easy mode offers escape hatches. Strict mode deliberately omits them - the
     // whole point of strict is no quick way out. Settings stays so the user can
     // still switch back to easy.
     if (!isStrict()) {
@@ -220,7 +220,7 @@
     let wrapper = document.getElementById(OVERLAY_ID);
     if (wrapper) {
       // Overlay exists. LinkedIn (SPA) may have re-rendered <main> as a new
-      // node, leaving our overlay detached or in a stale parent — re-home it.
+      // node, leaving our overlay detached or in a stale parent - re-home it.
       if (wrapper.parentNode !== host) host.appendChild(wrapper);
       return;
     }
@@ -244,7 +244,7 @@
   }
 
   /* ------------------------------------------------------------------ *
-   * Optional surfaces — suggested / promoted posts + strict feed modules
+   * Optional surfaces - suggested / promoted posts + strict feed modules
    * ------------------------------------------------------------------ */
 
   // Text fragments that mark promoted / suggested / recommendation modules.
@@ -366,7 +366,7 @@
     refreshOverlayContent();
   });
 
-  // 4. When the page becomes visible again, a pause may have expired — re-check.
+  // 4. When the page becomes visible again, a pause may have expired - re-check.
   document.addEventListener("visibilitychange", () => {
     if (!document.hidden) update();
   });

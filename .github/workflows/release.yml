@@ -106,7 +106,7 @@ jobs:
           files=(dist/signed/*.xpi)
           gh release create "$tag" "${files[@]}" \
             --title "$tag" \
-            --notes "Submitted to AMO (listed) for review — $tag (${{ steps.level.outputs.level }} bump). Listing: https://addons.mozilla.org/firefox/addon/linkedin-feed-blocker/"
+            --notes "Submitted to AMO (listed) for review - $tag (${{ steps.level.outputs.level }} bump). Listing: https://addons.mozilla.org/firefox/addon/linkedin-feed-blocker/"
 
       - name: Upload signed artifact
         if: ${{ hashFiles('dist/signed/*.xpi') != '' }}

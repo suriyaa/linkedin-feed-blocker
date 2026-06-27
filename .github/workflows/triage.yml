@@ -7,8 +7,8 @@ on:
   issues:
     types: [opened]
   # pull_request_target lets us comment on PRs from forks (the default token on
-  # fork `pull_request` runs is read-only). We only post a comment here — no
-  # checkout or execution of PR code — so this is safe.
+  # fork `pull_request` runs is read-only). We only post a comment here - no
+  # checkout or execution of PR code - so this is safe.
   pull_request_target:
     types: [opened]
 
@@ -38,7 +38,7 @@ jobs:
               ``,
               `🔒 If this is actually a security vulnerability, please close this and report it privately via [SECURITY.md](../blob/main/SECURITY.md).`,
               ``,
-              `cc @suriyaa (maintainer) — you'll review and triage soon. 🙏`,
+              `cc @suriyaa (maintainer) - you'll review and triage soon. 🙏`,
             ].join('\n');
             await github.rest.issues.createComment({
               owner: context.repo.owner,
@@ -66,7 +66,7 @@ jobs:
               ``,
               `See [CONTRIBUTING.md](../blob/main/CONTRIBUTING.md) for the full checklist.`,
               ``,
-              `cc @suriyaa (maintainer) — review requested. ✅`,
+              `cc @suriyaa (maintainer) - review requested. ✅`,
             ].join('\n');
             await github.rest.issues.createComment({
               owner: context.repo.owner,

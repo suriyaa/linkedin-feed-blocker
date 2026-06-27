@@ -1,7 +1,7 @@
 # LinkedIn Feed Blocker
 
 A small, privacy-respecting WebExtension that hides LinkedIn's addictive home
-feed and replaces it with a calm card — while keeping the genuinely useful parts
+feed and replaces it with a calm card - while keeping the genuinely useful parts
 of LinkedIn (messaging, notifications, search, jobs, profiles, company pages,
 and direct post links) fully working.
 
@@ -12,7 +12,7 @@ and structured for easy porting to a **Safari Web Extension**.
 
 | Browser | Install from … | Status |
 | :-----: | -------------- | ------ |
-| <img src="assets/firefox.png" width="32" alt="Firefox"> | [**Firefox Add-ons**](https://addons.mozilla.org/de/firefox/addon/linkedin-feed-blocker-ext/) | Reference build — works best on Firefox. |
+| <img src="assets/firefox.png" width="32" alt="Firefox"> | [**Firefox Add-ons**](https://addons.mozilla.org/de/firefox/addon/linkedin-feed-blocker-ext/) | Reference build - works best on Firefox. |
 | <img src="assets/github.png" width="32" alt="GitHub"> | [**GitHub – Releases**](https://github.com/suriyaa/linkedin-feed-blocker/releases) | Signed `.xpi` for Firefox + unpacked builds for Chromium. Manual install; won't auto-update. |
 | <img src="assets/chrome.png" width="32" alt="Chrome"> | Chrome Web Store | _Coming soon…_ |
 | <img src="assets/edge.png" width="32" alt="Edge"> | Edge Add-ons | _Coming soon…_ |
@@ -38,20 +38,20 @@ The top navigation bar stays intact, so the rest of LinkedIn is one click away.
 
 - **On by default**, in Easy mode.
 - **Two modes:**
-  - **Easy** — blocks only the center home feed; keeps the left + right sidebars.
-  - **Strict** — also hides both sidebars, suggested/promoted modules, and
+  - **Easy** - blocks only the center home feed; keeps the left + right sidebars.
+  - **Strict** - also hides both sidebars, suggested/promoted modules, and
     individual feed post permalinks (`/feed/update/...`).
-- **Popup** — current status, master enable/disable, Easy/Strict switch, pause
+- **Popup** - current status, master enable/disable, Easy/Strict switch, pause
   for 10 min / 30 min / 1 hour, resume now, open settings.
 - **Options page:**
   - Blocking mode (Easy / Strict)
   - Show replacement message + custom text
   - Default temporary-pause duration
 - **Temporary pause** with timestamp logic (survives reloads until it expires).
-- **Per-page "disable once"** (resets on reload — by design).
-- **Resilient detection** — URL/path first, then semantic landmarks/ARIA, with a
+- **Per-page "disable once"** (resets on reload - by design).
+- **Resilient detection** - URL/path first, then semantic landmarks/ARIA, with a
   MutationObserver fallback for LinkedIn's single-page-app re-renders.
-- **Accessible** — keyboard-navigable popup/options, semantic HTML, visible
+- **Accessible** - keyboard-navigable popup/options, semantic HTML, visible
   focus states, ARIA labels. Light-themed UI to match LinkedIn's light mode.
 
 ## Privacy & security
@@ -69,7 +69,7 @@ The top navigation bar stays intact, so the rest of LinkedIn is one click away.
 | `storage`                   | Persist your settings and the pause-until timestamp.       |
 | `*://*.linkedin.com/*` host | Run the content script that hides the feed, on LinkedIn only. |
 
-No `tabs`, no `scripting`, no broad `<all_urls>` — the content script is declared
+No `tabs`, no `scripting`, no broad `<all_urls>` - the content script is declared
 statically in the manifest and only matches LinkedIn.
 
 ---
@@ -78,7 +78,7 @@ statically in the manifest and only matches LinkedIn.
 
 **One shared source, per-browser builds.** Source of truth is `src/` + `icons/`
 + `manifests/`. A tiny build script copies them into `dist/<browser>/` with the
-correct `manifest.json` for each browser — so there is no duplicated code to keep
+correct `manifest.json` for each browser - so there is no duplicated code to keep
 in sync.
 
 ```
@@ -123,14 +123,14 @@ npm run icons              # regenerate placeholder icons
 npm run clean              # remove dist/
 ```
 
-(No `npm install` needed — the scripts use only Node's standard library + system
+(No `npm install` needed - the scripts use only Node's standard library + system
 `zip`/`python3`.)
 
 ---
 
 ## Load it locally
 
-Run `npm run build` first — it creates the `dist/<browser>/` folders you load.
+Run `npm run build` first - it creates the `dist/<browser>/` folders you load.
 
 ### Firefox (reference implementation)
 
@@ -138,7 +138,7 @@ Run `npm run build` first — it creates the `dist/<browser>/` folders you load.
 2. Open `about:debugging#/runtime/this-firefox`.
 3. Click **Load Temporary Add-on…**.
 4. Select `dist/firefox/manifest.json`.
-5. Open `https://www.linkedin.com/feed/` — the feed should be replaced.
+5. Open `https://www.linkedin.com/feed/` - the feed should be replaced.
 
 Temporary add-ons are removed when Firefox restarts. For a persistent install,
 package and sign via [AMO](https://addons.mozilla.org/) or use Developer Edition
@@ -168,7 +168,7 @@ npm run zip        # produces dist/firefox.zip (rename to .xpi for local use)
 **Chromium notes (Chrome + Edge):**
 
 - These targets use `background.service_worker` (the Firefox build uses
-  `background.scripts`) — each is generated from its own manifest in `manifests/`.
+  `background.scripts`) - each is generated from its own manifest in `manifests/`.
 - `browser.*` is aliased to `chrome.*` by `src/lib/browser-polyfill.js`. The APIs
   used (`storage`, `runtime`, `action`) are promise-based in Chrome MV3.
 - Icons are PNG, which Chrome/Edge require for the toolbar action.
@@ -196,12 +196,12 @@ app project via Apple's converter. Use the generated **`dist/safari`** folder
 - **Signing for distribution** requires an Apple Developer account; the converter
   output is a full app you must sign and (for the App Store) submit.
 - The `dist/safari` build uses the Chrome-style manifest (`background.service_worker`,
-  no `gecko` key), which is exactly what the converter expects — no manual editing.
+  no `gecko` key), which is exactly what the converter expects - no manual editing.
 - Safari's background is an **event page / service worker**; the tiny background
   script here is compatible.
 - **`prefers-color-scheme`** and the overlay render fine, but test the overlay
   position on Safari since its layout timing for SPA apps can differ slightly.
-- Safari is stricter about **host permission prompts** — the user must grant
+- Safari is stricter about **host permission prompts** - the user must grant
   access to linkedin.com the first time.
 - Unsigned-extension permission resets on Safari restart during development.
 
@@ -215,7 +215,7 @@ Chrome-only APIs to preserve Safari portability.
 
 - LinkedIn is a fast-changing single-page app. If they significantly restructure
   the feed DOM, the overlay placement or sidebar/suggested hiding may need
-  selector updates — see [`SELECTOR-STRATEGY.md`](SELECTOR-STRATEGY.md). The
+  selector updates - see [`SELECTOR-STRATEGY.md`](SELECTOR-STRATEGY.md). The
   URL-based home-feed detection is the most durable part and rarely breaks.
 - "Suggested / promoted" detection uses text/ARIA heuristics; LinkedIn
   occasionally localizes or relabels these, so a few items may slip through or,
@@ -223,7 +223,7 @@ Chrome-only APIs to preserve Safari portability.
 - "Disable on this page once" is intentionally per-page-load and resets on
   reload.
 - The extension only acts on `*.linkedin.com`; it does nothing elsewhere.
-- Placeholder icons are functional but not designed art — replace before
+- Placeholder icons are functional but not designed art - replace before
   publishing.
 
 ---
@@ -276,4 +276,4 @@ Licensed under the **GNU General Public License v3.0 or later**
 ## Security
 
 To report a vulnerability, see [SECURITY.md](SECURITY.md). Contributions are
-welcome — see [CONTRIBUTING.md](CONTRIBUTING.md).
+welcome - see [CONTRIBUTING.md](CONTRIBUTING.md).

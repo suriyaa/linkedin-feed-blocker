@@ -3,7 +3,7 @@ blank_issues_enabled: false
 contact_links:
   - name: 🔒 Report a security vulnerability
     url: https://github.com/suriyaa/linkedin-feed-blocker/security/advisories/new
-    about: Please report vulnerabilities privately — see SECURITY.md. Do NOT open a public issue.
+    about: Please report vulnerabilities privately - see SECURITY.md. Do NOT open a public issue.
   - name: 💬 Question / general help
     url: https://github.com/suriyaa/linkedin-feed-blocker/discussions
     about: For usage questions and ideas, start a discussion instead of an issue.

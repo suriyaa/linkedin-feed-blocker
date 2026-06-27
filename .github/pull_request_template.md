@@ -1,6 +1,6 @@
 <!--
 Thanks for contributing! Please read CONTRIBUTING.md first.
-Edit the source under src/ / manifests/ — never dist/ (it's generated).
+Edit the source under src/ / manifests/ - never dist/ (it's generated).
 -->
 
 ## Summary
