@@ -1,0 +1,51 @@
+name: 💡 Feature request
+description: Suggest a new option, mode, or surface to block
+title: "[Feature]: "
+labels: ["enhancement", "needs-triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for the idea! Keep in mind the project's goals: block the feed,
+        keep the rest of LinkedIn usable, stay private (no data collection) and
+        minimal-permission.
+
+  - type: checkboxes
+    id: preflight
+    attributes:
+      label: Pre-flight checks
+      options:
+        - label: I searched existing issues and this isn't a duplicate.
+          required: true
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem / motivation
+      description: What are you trying to achieve? What's annoying today?
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution
+      description: What should the extension do? Which mode/setting would it belong to (Easy/Strict)?
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+    validations:
+      required: false
+
+  - type: textarea
+    id: mockup
+    attributes:
+      label: Screenshot / mockup (optional)
+      description: A screenshot of the LinkedIn surface involved, or a mockup of the UI, helps a lot.
+      placeholder: Paste or drag an image here.
+    validations:
+      required: false

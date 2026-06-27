@@ -1,0 +1,108 @@
+name: 🐞 Bug report
+description: Something isn't working (feed not blocked, UI broken, etc.)
+title: "[Bug]: "
+labels: ["bug", "needs-triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to report a bug! Please fill in as much as you
+        can — **a screenshot and the exact steps make fixes much faster.**
+
+  - type: checkboxes
+    id: preflight
+    attributes:
+      label: Pre-flight checks
+      options:
+        - label: I searched existing issues and this isn't a duplicate.
+          required: true
+        - label: I'm on the latest version of the extension.
+          required: true
+        - label: This is not a security vulnerability (those go through SECURITY.md / private advisory).
+          required: true
+
+  - type: dropdown
+    id: browser
+    attributes:
+      label: Browser
+      options:
+        - Firefox (desktop)
+        - Firefox for Android
+        - Chrome
+        - Edge
+        - Safari
+        - Other (note in description)
+    validations:
+      required: true
+
+  - type: input
+    id: browser_version
+    attributes:
+      label: Browser version
+      placeholder: "e.g. Firefox 142.0"
+    validations:
+      required: true
+
+  - type: input
+    id: ext_version
+    attributes:
+      label: Extension version
+      placeholder: "e.g. 1.0.1 (see about:addons / the options page footer)"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: mode
+    attributes:
+      label: Mode
+      options:
+        - Easy
+        - Strict
+        - Not sure
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: Include the LinkedIn URL pattern where it happens (e.g. /feed/, /jobs/).
+      placeholder: |
+        1. Go to https://www.linkedin.com/feed/
+        2. ...
+        3. See ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior
+    validations:
+      required: true
+
+  - type: textarea
+    id: screenshot
+    attributes:
+      label: Screenshot (required)
+      description: Drag-and-drop an image here. A screenshot of the broken page is essential for layout/feed-detection bugs.
+      placeholder: Paste or drag your screenshot here.
+    validations:
+      required: true
+
+  - type: textarea
+    id: console
+    attributes:
+      label: Console errors
+      description: |
+        Open the console (Cmd/Ctrl+Shift+J in Firefox) on the affected tab and paste any lines mentioning `lfb`.
+      render: shell
+    validations:
+      required: false

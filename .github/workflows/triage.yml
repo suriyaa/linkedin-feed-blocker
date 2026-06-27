@@ -1,0 +1,76 @@
+name: Triage
+
+# Greets new issues and PRs, reminds the reporter to include the info we need
+# (steps, version, screenshot), and pings the maintainer so they get notified.
+
+on:
+  issues:
+    types: [opened]
+  # pull_request_target lets us comment on PRs from forks (the default token on
+  # fork `pull_request` runs is read-only). We only post a comment here — no
+  # checkout or execution of PR code — so this is safe.
+  pull_request_target:
+    types: [opened]
+
+permissions:
+  issues: write
+  pull-requests: write
+
+jobs:
+  greet-issue:
+    if: ${{ github.event_name == 'issues' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/github-script@v7
+        with:
+          script: |
+            const author = context.payload.issue.user.login;
+            const body = [
+              `👋 Thanks for opening this, @${author}!`,
+              ``,
+              `To help us act on it quickly, please make sure you've included:`,
+              `- **Browser + version** and **extension version**`,
+              `- **Exact steps** and the **LinkedIn URL pattern** (e.g. \`/feed/\`, \`/jobs/\`)`,
+              `- A **screenshot** of the problem (essential for layout / feed-detection bugs)`,
+              `- Any **console errors** mentioning \`lfb\``,
+              ``,
+              `If something's missing, just edit the issue or add a comment.`,
+              ``,
+              `🔒 If this is actually a security vulnerability, please close this and report it privately via [SECURITY.md](../blob/main/SECURITY.md).`,
+              ``,
+              `cc @suriyaa (maintainer) — you'll review and triage soon. 🙏`,
+            ].join('\n');
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.payload.issue.number,
+              body,
+            });
+
+  greet-pr:
+    if: ${{ github.event_name == 'pull_request_target' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/github-script@v7
+        with:
+          script: |
+            const author = context.payload.pull_request.user.login;
+            const body = [
+              `🙌 Thanks for the pull request, @${author}!`,
+              ``,
+              `Please confirm before review:`,
+              `- [ ] You edited \`src/\` / \`manifests/\`, **not** \`dist/\` (generated)`,
+              `- [ ] \`npm run build\` succeeds and \`npx web-ext lint --source-dir dist/firefox\` is clean`,
+              `- [ ] You added **screenshots** for any UI / feed-detection change`,
+              `- [ ] You tested the affected behavior (see TEST-PLAN.md)`,
+              ``,
+              `See [CONTRIBUTING.md](../blob/main/CONTRIBUTING.md) for the full checklist.`,
+              ``,
+              `cc @suriyaa (maintainer) — review requested. ✅`,
+            ].join('\n');
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.payload.pull_request.number,
+              body,
+            });
