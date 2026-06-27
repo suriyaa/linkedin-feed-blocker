@@ -8,6 +8,17 @@ and direct post links) fully working.
 Built **Firefox-first**, compatible with **Chrome** and **Edge** (Manifest V3),
 and structured for easy porting to a **Safari Web Extension**.
 
+## Install
+
+| Browser | Install from … | Status |
+| :-----: | -------------- | ------ |
+| <img src="assets/firefox.png" width="32" alt="Firefox"> | [**Firefox Add-ons**](https://addons.mozilla.org/de/firefox/addon/linkedin-feed-blocker-ext/) | Reference build — works best on Firefox. |
+| <img src="assets/github.png" width="32" alt="GitHub"> | [**GitHub – Releases**](https://github.com/suriyaa/linkedin-feed-blocker/releases) | Signed `.xpi` for Firefox + unpacked builds for Chromium. Manual install; won't auto-update. |
+| <img src="assets/chrome.png" width="32" alt="Chrome"> | Chrome Web Store | _Coming soon…_ |
+| <img src="assets/edge.png" width="32" alt="Edge"> | Edge Add-ons | _Coming soon…_ |
+| <img src="assets/opera.png" width="32" alt="Opera"> | Opera Add-ons | _Coming soon…_ |
+| <img src="assets/safari.png" width="32" alt="Safari"> | App Store (Safari) | _Coming soon…_ |
+
 ---
 
 ## What it does
