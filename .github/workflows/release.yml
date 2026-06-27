@@ -80,8 +80,8 @@ jobs:
 
       - name: Commit version bump
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git config user.name "Suriyaa Sundararuban"
+          git config user.email "github@suriyaa.tk"
           git add package.json manifests/manifest.firefox.json manifests/manifest.chrome.json
           git commit -m "chore: release v${{ steps.bump.outputs.version }} [skip ci]"
           git push
