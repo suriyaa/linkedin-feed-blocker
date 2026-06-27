@@ -8,6 +8,10 @@ and direct post links) fully working.
 Built **Firefox-first**, compatible with **Chrome** and **Edge** (Manifest V3),
 and structured for easy porting to a **Safari Web Extension**.
 
+<p align="center">
+  <img src="assets/linkedin-meme.jpg" width="520" alt="LinkedIn lunatics be like: what should I post about today?">
+</p>
+
 ## Install
 
 | Browser | Install from … | Status |
