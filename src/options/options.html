@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>LinkedIn Feed Blocker — Settings</title>
+    <link rel="stylesheet" href="options.css" />
+  </head>
+  <body>
+    <main class="page" aria-labelledby="page-title">
+      <header class="page__header">
+        <h1 id="page-title" class="page__title">LinkedIn Feed Blocker</h1>
+        <p class="page__subtitle">Settings</p>
+      </header>
+
+      <form id="settings-form" class="form">
+        <fieldset class="card">
+          <legend class="card__legend">Blocking mode</legend>
+
+          <label class="opt">
+            <input type="radio" name="mode" value="easy" />
+            <span class="opt__body">
+              <span class="opt__title">Easy</span>
+              <span class="opt__desc">Block only the center home feed. Keep the left and right sidebars.</span>
+            </span>
+          </label>
+
+          <label class="opt">
+            <input type="radio" name="mode" value="strict" />
+            <span class="opt__body">
+              <span class="opt__title">Strict</span>
+              <span class="opt__desc">Block the feed, both sidebars, suggested/promoted modules, and individual feed post links.</span>
+            </span>
+          </label>
+        </fieldset>
+
+        <fieldset class="card">
+          <legend class="card__legend">Replacement message</legend>
+
+          <label class="opt">
+            <input type="checkbox" name="showMessage" />
+            <span class="opt__body">
+              <span class="opt__title">Show motivational line</span>
+              <span class="opt__desc">Display a short custom message on the card.</span>
+            </span>
+          </label>
+
+          <label class="field">
+            <span class="field__label" for="customText">Custom message text</span>
+            <input
+              type="text"
+              id="customText"
+              name="customText"
+              class="field__input"
+              maxlength="120"
+              placeholder="Use LinkedIn intentionally."
+            />
+          </label>
+        </fieldset>
+
+        <fieldset class="card">
+          <legend class="card__legend">Temporary pause</legend>
+          <label class="field">
+            <span class="field__label" for="pauseDurationMinutes">Default pause duration</span>
+            <select id="pauseDurationMinutes" name="pauseDurationMinutes" class="field__input">
+              <option value="10">10 minutes</option>
+              <option value="30">30 minutes</option>
+              <option value="60">1 hour</option>
+            </select>
+          </label>
+        </fieldset>
+
+        <div class="actions">
+          <button type="button" id="reset-btn" class="btn btn--ghost">Reset to defaults</button>
+          <span id="save-status" class="save-status" role="status" aria-live="polite"></span>
+        </div>
+      </form>
+
+      <footer class="page__copyright">
+        <p class="page__copyright-name">LinkedIn Feed Blocker - v1.0.0</p>
+        <p>&copy; 2026&ndash;present
+          <a class="page__copyright-link" href="https://www.suriyaasundararuban.com/" target="_blank" rel="noopener noreferrer">Suriyaa Sundararuban</a>.
+          All rights reserved.</p>
+      </footer>
+    </main>
+
+    <script src="../lib/browser-polyfill.js"></script>
+    <script src="../lib/defaults.js"></script>
+    <script src="../lib/storage.js"></script>
+    <script src="options.js"></script>
+  </body>
+</html>

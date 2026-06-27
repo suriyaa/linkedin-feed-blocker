@@ -1,0 +1,153 @@
+/*
+ * Feed-blocking styles.
+ *
+ * Strategy: every rule is gated behind a state class on <html> that the content
+ * script toggles (lfb-block-feed, lfb-block-sidebar, lfb-block-suggested,
+ * lfb-strict). The script adds lfb-block-feed at document_start *before paint*
+ * for feed URLs when blocking is on by default, which prevents the feed from
+ * flashing. If settings later say "don't block", the class is removed.
+ *
+ * We hide rather than delete via CSS so LinkedIn's own scripts don't error on
+ * missing nodes; the overlay is injected separately by the content script.
+ */
+
+/* ----- Home feed: hide the main feed column ----- */
+/*
+ * Robust strategy: blank EVERYTHING inside the primary <main> column except our
+ * own injected overlay. This is attribute-independent, so it survives LinkedIn's
+ * class churn and works whether or not <main> carries role="main".
+ * The `lfb-block-feed` class is only present on feed URLs, so this never affects
+ * jobs/messaging/profile pages.
+ */
+html.lfb-block-feed main > *:not(#lfb-overlay-root),
+html.lfb-block-feed [role="main"] > *:not(#lfb-overlay-root) {
+  display: none !important;
+}
+
+/* Collapse the now-empty main so the overlay sits at the top, not below a gap. */
+html.lfb-block-feed main,
+html.lfb-block-feed [role="main"] {
+  min-height: 0 !important;
+}
+
+/* ----- Overlay card ----- */
+.lfb-overlay {
+  /* Calm, native-ish card placed where the feed was. */
+  box-sizing: border-box;
+  margin: 24px auto;
+  max-width: 560px;
+  padding: 32px 28px;
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 12px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+    Arial, sans-serif;
+  color: #1d2226;
+  text-align: center;
+}
+
+.lfb-overlay__badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  margin-bottom: 16px;
+  border-radius: 50%;
+  background: rgba(10, 102, 194, 0.1);
+  color: #0a66c2;
+  font-size: 22px;
+  line-height: 1;
+}
+
+.lfb-overlay__title {
+  margin: 0 0 6px;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.lfb-overlay__subtitle {
+  margin: 0 0 24px;
+  font-size: 14px;
+  opacity: 0.75;
+}
+
+.lfb-overlay__actions {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  margin: 0 0 18px;
+}
+
+.lfb-overlay__action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 9px 12px;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  color: #0a66c2;
+  background: transparent;
+  border: 1px solid rgba(10, 102, 194, 0.5);
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background-color 0.12s ease;
+}
+
+.lfb-overlay__action:hover {
+  background: rgba(10, 102, 194, 0.08);
+}
+
+.lfb-overlay__action:focus-visible {
+  outline: 2px solid #0a66c2;
+  outline-offset: 2px;
+}
+
+.lfb-overlay__secondary {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 14px;
+  margin-top: 6px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.lfb-overlay__link {
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: 13px;
+  font-family: inherit;
+  color: inherit;
+  opacity: 0.7;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.lfb-overlay__link:hover {
+  opacity: 1;
+}
+
+.lfb-overlay__link:focus-visible {
+  outline: 2px solid #0a66c2;
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* ----- Optional surfaces ----- */
+
+/* Sidebar recommendation rails (e.g. "Add to your feed", news, ads). */
+html.lfb-block-sidebar aside[aria-label],
+html.lfb-block-sidebar .scaffold-layout__aside {
+  display: none !important;
+}
+
+/* Suggested / promoted posts that LinkedIn renders inside content streams.
+   Targeted by the content script tagging matched nodes with this class. */
+.lfb-suggested-hidden {
+  display: none !important;
+}

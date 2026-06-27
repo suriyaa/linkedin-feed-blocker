@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>LinkedIn Feed Blocker</title>
+    <link rel="stylesheet" href="popup.css" />
+  </head>
+  <body>
+    <main class="popup" aria-labelledby="popup-title">
+      <header class="popup__header">
+        <h1 id="popup-title" class="popup__title">LinkedIn Feed Blocker</h1>
+        <p id="status-line" class="popup__status" role="status" aria-live="polite">
+          Checking…
+        </p>
+      </header>
+
+      <section class="popup__row">
+        <label class="switch" for="master-toggle">
+          <span class="switch__label">Blocking enabled</span>
+          <input type="checkbox" id="master-toggle" class="switch__input" />
+          <span class="switch__track" aria-hidden="true"></span>
+        </label>
+      </section>
+
+      <section class="popup__group" aria-labelledby="mode-heading">
+        <h2 id="mode-heading" class="popup__group-title">Mode</h2>
+        <div class="segmented" role="radiogroup" aria-labelledby="mode-heading">
+          <button type="button" class="segmented__btn" data-mode="easy" role="radio" aria-checked="false">
+            Easy
+          </button>
+          <button type="button" class="segmented__btn" data-mode="strict" role="radio" aria-checked="false">
+            Strict
+          </button>
+        </div>
+        <p id="mode-desc" class="popup__hint"></p>
+      </section>
+
+      <section id="pause-section" class="popup__group" aria-labelledby="pause-heading">
+        <h2 id="pause-heading" class="popup__group-title">Pause blocking</h2>
+        <div class="popup__buttons" role="group" aria-label="Pause duration">
+          <button type="button" class="btn" data-pause="10">10 min</button>
+          <button type="button" class="btn" data-pause="30">30 min</button>
+          <button type="button" class="btn" data-pause="60">1 hour</button>
+        </div>
+        <button type="button" id="resume-btn" class="btn btn--ghost" hidden>
+          Resume now
+        </button>
+      </section>
+
+      <footer class="popup__footer">
+        <button type="button" id="open-options" class="link-btn">
+          Open settings
+        </button>
+        <p class="popup__copyright">&copy; 2026&ndash;present
+          <a class="popup__copyright-link" href="https://www.suriyaasundararuban.com/" target="_blank" rel="noopener noreferrer">Suriyaa Sundararuban</a>. All rights reserved.</p>
+      </footer>
+    </main>
+
+    <script src="../lib/browser-polyfill.js"></script>
+    <script src="../lib/defaults.js"></script>
+    <script src="../lib/storage.js"></script>
+    <script src="popup.js"></script>
+  </body>
+</html>

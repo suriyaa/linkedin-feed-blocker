@@ -1,0 +1,196 @@
+:root {
+  --lfb-blue: #0a66c2;
+  --lfb-text: #1d2226;
+  --lfb-muted: #5e6669;
+  --lfb-border: rgba(0, 0, 0, 0.12);
+  --lfb-bg: #f4f2ee;
+  --lfb-card: #ffffff;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+    Arial, sans-serif;
+}
+
+/* Light-mode UI by design (matches the LinkedIn light theme). */
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--lfb-bg);
+  color: var(--lfb-text);
+}
+
+.page {
+  max-width: 620px;
+  margin: 0 auto;
+  padding: 32px 20px 48px;
+}
+
+.page__header {
+  margin-bottom: 20px;
+}
+
+.page__title {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 600;
+}
+
+.page__subtitle {
+  margin: 2px 0 0;
+  font-size: 14px;
+  color: var(--lfb-muted);
+}
+
+.card {
+  margin: 0 0 18px;
+  padding: 18px 20px;
+  background: var(--lfb-card);
+  border: 1px solid var(--lfb-border);
+  border-radius: 10px;
+}
+
+.card__legend {
+  padding: 0 6px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--lfb-muted);
+}
+
+.opt {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 10px 0;
+  cursor: pointer;
+}
+
+.opt + .opt {
+  border-top: 1px solid var(--lfb-border);
+}
+
+.opt input[type="checkbox"],
+.opt input[type="radio"] {
+  margin-top: 2px;
+  width: 18px;
+  height: 18px;
+  accent-color: var(--lfb-blue);
+  flex: none;
+}
+
+.opt__body {
+  display: flex;
+  flex-direction: column;
+}
+
+.opt__title {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.opt__desc {
+  font-size: 12px;
+  color: var(--lfb-muted);
+}
+
+.field {
+  display: block;
+  margin-top: 12px;
+}
+
+.field__label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.field__input {
+  width: 100%;
+  padding: 9px 10px;
+  font-size: 14px;
+  font-family: inherit;
+  color: var(--lfb-text);
+  background: var(--lfb-bg);
+  border: 1px solid var(--lfb-border);
+  border-radius: 6px;
+}
+
+.field__input:focus-visible {
+  outline: 2px solid var(--lfb-blue);
+  outline-offset: 1px;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 8px;
+}
+
+.btn {
+  padding: 9px 16px;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: inherit;
+  color: var(--lfb-blue);
+  background: transparent;
+  border: 1px solid rgba(10, 102, 194, 0.5);
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background: rgba(10, 102, 194, 0.08);
+}
+
+.btn:focus-visible {
+  outline: 2px solid var(--lfb-blue);
+  outline-offset: 2px;
+}
+
+.btn--ghost {
+  color: var(--lfb-muted);
+  border-color: var(--lfb-border);
+}
+
+.save-status {
+  font-size: 13px;
+  color: var(--lfb-muted);
+}
+
+.page__copyright {
+  margin-top: 28px;
+  padding-top: 16px;
+  border-top: 1px solid var(--lfb-border);
+  text-align: center;
+  font-size: 12px;
+  color: var(--lfb-muted);
+}
+
+.page__copyright p {
+  margin: 2px 0;
+}
+
+.page__copyright-name {
+  font-weight: 600;
+  color: var(--lfb-text);
+}
+
+.page__copyright-link {
+  color: var(--lfb-blue);
+  text-decoration: none;
+}
+
+.page__copyright-link:hover {
+  text-decoration: underline;
+}
+
+.page__copyright-link:focus-visible {
+  outline: 2px solid var(--lfb-blue);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
