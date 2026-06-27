@@ -217,6 +217,41 @@ Chrome-only APIs to preserve Safari portability.
 
 ---
 
+## Continuous delivery (auto build + sign)
+
+`.github/workflows/release.yml` runs on every push to `main` and:
+
+1. **Bumps the version** (AMO requires a unique version per upload). The level
+   comes from the head commit message:
+   - `[major]` or `BREAKING CHANGE` → `X.0.0`
+   - `[minor]` or a `feat:` prefix → `x.X.0`
+   - anything else → `x.x.X` (patch, default)
+2. Builds the Firefox target and lints it (`web-ext lint`).
+3. **Signs** it via AMO (`web-ext sign`, unlisted channel).
+4. Commits the bump back (`chore: release vX.Y.Z [skip ci]`).
+5. Tags it and publishes a **GitHub Release** with the signed `.xpi` attached.
+
+### One-time setup
+
+Create a GitHub **Environment** named `amo`
+(`Settings → Environments → New environment`) and add two secrets:
+
+| Secret | Value |
+| ------ | ----- |
+| `WEB_EXT_API_KEY` | JWT issuer from <https://addons.mozilla.org/developers/addon/api/key/> |
+| `WEB_EXT_API_SECRET` | JWT secret (same AMO account that owns the add-on) |
+
+Use the **same AMO account** that owns the add-on id
+(`linkedin-feed-blocker@local.extension`), or signing will fail.
+
+You can also bump locally without CI:
+
+```bash
+npm run bump            # patch (default)
+npm run bump minor
+npm run bump major
+```
+
 ## License
 
 Licensed under the **GNU General Public License v3.0 or later**

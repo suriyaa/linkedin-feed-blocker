@@ -1,0 +1,105 @@
+name: Build & Sign
+
+# Runs on every push to main. Each push bumps the version (AMO requires a unique
+# version per upload), builds the Firefox target, signs it via AMO, commits the
+# bump back, and attaches the signed .xpi to a GitHub Release.
+#
+# Version level is taken from the head commit message:
+#   - "[major]" or "BREAKING CHANGE"  -> X.0.0
+#   - "[minor]" or a "feat:" prefix   -> x.X.0
+#   - anything else                   -> x.x.X  (patch, the default)
+#
+# Setup required (one time):
+#   Create a GitHub Environment named "amo" (Settings -> Environments) with two
+#   secrets: WEB_EXT_API_KEY and WEB_EXT_API_SECRET (from
+#   https://addons.mozilla.org/developers/addon/api/key/).
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write # push the version-bump commit + create releases
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  release:
+    # Skip the bot's own bump commit to avoid loops.
+    if: ${{ !contains(github.event.head_commit.message, '[skip ci]') }}
+    runs-on: ubuntu-latest
+    environment: amo # secrets live here
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Determine version bump level
+        id: level
+        run: |
+          msg=$(git log -1 --pretty=%B)
+          if echo "$msg" | grep -qiE '\[major\]|BREAKING CHANGE'; then
+            echo "level=major" >> "$GITHUB_OUTPUT"
+          elif echo "$msg" | grep -qiE '\[minor\]|^feat(\(|:)'; then
+            echo "level=minor" >> "$GITHUB_OUTPUT"
+          else
+            echo "level=patch" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Bump version
+        id: bump
+        run: |
+          version=$(node scripts/bump-version.mjs ${{ steps.level.outputs.level }})
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+          echo "Bumped to $version (${{ steps.level.outputs.level }})"
+
+      - name: Build Firefox target
+        run: npm run build:firefox
+
+      - name: Lint
+        run: npx --yes web-ext lint --source-dir dist/firefox
+
+      - name: Sign (AMO, unlisted)
+        env:
+          WEB_EXT_API_KEY: ${{ secrets.WEB_EXT_API_KEY }}
+          WEB_EXT_API_SECRET: ${{ secrets.WEB_EXT_API_SECRET }}
+        run: |
+          npx --yes web-ext sign \
+            --source-dir dist/firefox \
+            --channel=unlisted \
+            --artifacts-dir dist/signed
+
+      - name: Commit version bump
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add package.json manifests/manifest.firefox.json manifests/manifest.chrome.json
+          git commit -m "chore: release v${{ steps.bump.outputs.version }} [skip ci]"
+          git push
+
+      - name: Create GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          tag="v${{ steps.bump.outputs.version }}"
+          git tag "$tag"
+          git push origin "$tag"
+          gh release create "$tag" dist/signed/*.xpi \
+            --title "$tag" \
+            --notes "Automated signed build for $tag (${{ steps.level.outputs.level }} bump)."
+
+      - name: Upload signed artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: firefox-signed-${{ steps.bump.outputs.version }}
+          path: dist/signed/*.xpi
+          if-no-files-found: error

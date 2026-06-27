@@ -12,7 +12,10 @@
     "build:edge": "node scripts/build.mjs edge",
     "build:safari": "node scripts/build.mjs safari",
     "clean": "rm -rf dist",
-    "zip": "npm run build && node scripts/zip.mjs"
+    "zip": "npm run build && node scripts/zip.mjs",
+    "bump": "node scripts/bump-version.mjs",
+    "sign:unlisted": "npm run build:firefox && set -a && . ./.env && set +a && web-ext sign --source-dir dist/firefox --channel=unlisted --artifacts-dir dist/signed",
+    "sign:listed": "npm run build:firefox && set -a && . ./.env && set +a && web-ext sign --source-dir dist/firefox --channel=listed --artifacts-dir dist/signed"
   },
   "license": "GPL-3.0-or-later"
 }
