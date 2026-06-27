@@ -227,9 +227,11 @@ Chrome-only APIs to preserve Safari portability.
    - `[minor]` or a `feat:` prefix → `x.X.0`
    - anything else → `x.x.X` (patch, default)
 2. Builds the Firefox target and lints it (`web-ext lint`).
-3. **Signs** it via AMO (`web-ext sign`, unlisted channel).
+3. **Submits to AMO** (`web-ext sign`, **listed** channel) for review, using
+   `amo-metadata.json` for the license (`GPL-3.0-only`), summary, and category.
 4. Commits the bump back (`chore: release vX.Y.Z [skip ci]`).
-5. Tags it and publishes a **GitHub Release** with the signed `.xpi` attached.
+5. Tags it and publishes a **GitHub Release** (the signed `.xpi` is attached only
+   if AMO returns one; listed builds are signed by Mozilla after review).
 
 ### One-time setup
 

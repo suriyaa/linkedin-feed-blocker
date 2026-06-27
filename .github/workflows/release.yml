@@ -68,15 +68,19 @@ jobs:
       - name: Lint
         run: npx --yes web-ext lint --source-dir dist/firefox
 
-      - name: Sign (AMO, unlisted)
+      - name: Submit to AMO (listed)
         env:
           WEB_EXT_API_KEY: ${{ secrets.WEB_EXT_API_KEY }}
           WEB_EXT_API_SECRET: ${{ secrets.WEB_EXT_API_SECRET }}
         run: |
+          # Listed submissions go to Mozilla review; the license + listing
+          # metadata are supplied via amo-metadata.json. web-ext exits 0 once the
+          # version is uploaded and validated (review/signing happens after).
           npx --yes web-ext sign \
             --source-dir dist/firefox \
-            --channel=unlisted \
-            --artifacts-dir dist/signed
+            --channel=listed \
+            --artifacts-dir dist/signed \
+            --amo-metadata amo-metadata.json
 
       - name: Commit version bump
         run: |
@@ -93,13 +97,18 @@ jobs:
           tag="v${{ steps.bump.outputs.version }}"
           git tag "$tag"
           git push origin "$tag"
-          gh release create "$tag" dist/signed/*.xpi \
+          # Listed builds may not produce a local .xpi (Mozilla signs after
+          # review), so attach any artifacts that exist but don't require them.
+          shopt -s nullglob
+          files=(dist/signed/*.xpi)
+          gh release create "$tag" "${files[@]}" \
             --title "$tag" \
-            --notes "Automated signed build for $tag (${{ steps.level.outputs.level }} bump)."
+            --notes "Submitted to AMO (listed) for review — $tag (${{ steps.level.outputs.level }} bump). Listing: https://addons.mozilla.org/firefox/addon/linkedin-feed-blocker/"
 
       - name: Upload signed artifact
+        if: ${{ hashFiles('dist/signed/*.xpi') != '' }}
         uses: actions/upload-artifact@v4
         with:
           name: firefox-signed-${{ steps.bump.outputs.version }}
           path: dist/signed/*.xpi
-          if-no-files-found: error
+          if-no-files-found: ignore

@@ -1,6 +1,6 @@
 {
   "name": "linkedin-feed-blocker",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Browser extension that blocks the LinkedIn home feed while keeping the rest of LinkedIn usable. Firefox-first, Chrome/Edge/Safari compatible.",
   "private": true,
   "type": "module",
@@ -14,8 +14,8 @@
     "clean": "rm -rf dist",
     "zip": "npm run build && node scripts/zip.mjs",
     "bump": "node scripts/bump-version.mjs",
-    "sign:unlisted": "npm run build:firefox && set -a && . ./.env && set +a && web-ext sign --source-dir dist/firefox --channel=unlisted --artifacts-dir dist/signed",
-    "sign:listed": "npm run build:firefox && set -a && . ./.env && set +a && web-ext sign --source-dir dist/firefox --channel=listed --artifacts-dir dist/signed"
+    "sign:unlisted": "npm run build:firefox && set -a && . ./.env && set +a && npx --yes web-ext sign --source-dir dist/firefox --channel=unlisted --artifacts-dir dist/signed",
+    "sign:listed": "npm run build:firefox && set -a && . ./.env && set +a && npx --yes web-ext sign --source-dir dist/firefox --channel=listed --artifacts-dir dist/signed --amo-metadata amo-metadata.json"
   },
   "license": "GPL-3.0-or-later"
 }

@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "LinkedIn Feed Blocker",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Hides the distracting LinkedIn home feed while keeping messaging, jobs, search, notifications, and profiles fully usable.",
 
   "icons": {
